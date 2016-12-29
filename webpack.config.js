@@ -24,7 +24,7 @@ const common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Webpack demo'
+      title: 'SoulBoy - Khalil Fong Portfolio'
     })
   ]
 };
