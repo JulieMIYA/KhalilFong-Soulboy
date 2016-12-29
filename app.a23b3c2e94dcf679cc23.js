@@ -1,0 +1,1 @@
+webpackJsonp([2,3],{15:function(e,n){e.exports=function(){var e=document.createElement("h1");return e.className="pure-button",e.innerHTML="Soulboy page Launched !Oh teah",e}},30:function(e,n,t){t(5);var o=t(15);document.body.appendChild(o())}},[30]);
