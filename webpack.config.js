@@ -42,7 +42,7 @@ module.exports = function(env) {
           // will work without but this is useful to set.
           chunkFilename: '[chunkhash].js',
           // Tweak this to match your GitHub project name
-          publicPath: '/webpack-demo/'
+          publicPath: '/KhalilFong-SoulBoy/'
         }
       },
       parts.clean(PATHS.build),
