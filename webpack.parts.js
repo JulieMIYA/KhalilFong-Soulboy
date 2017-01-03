@@ -161,7 +161,10 @@ exports.purifyCSS = function(paths) {
     plugins: [
       new PurifyCSSPlugin({
         basePath: process.cwd(),
-        paths: paths.map(path => `${path}/*`)
+        paths: paths.map(path => `${path}/*`),
+          purifyOptions:{
+              minify: true
+          }
       }),
     ]
   }
