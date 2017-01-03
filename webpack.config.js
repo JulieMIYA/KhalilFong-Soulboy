@@ -1,33 +1,40 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 
 const parts = require('./webpack.parts');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
+  assets: path.join(__dirname, 'app','/assets'),
   style: [
     path.join(__dirname, 'node_modules', 'purecss'),
-    path.join(__dirname, 'app', 'main.css')
+    path.join(__dirname, 'app', 'main.sass')
   ],
   build: path.join(__dirname, 'build')
 };
 
-const common = {
-  entry: {
-    style: PATHS.style,
-    app: PATHS.app
-  },
-  output: {
-    path: PATHS.build,
-    filename: '[name].js'
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'SoulBoy - Khalil Fong Portfolio'
-    })
-  ]
-};
+const common = merge(
+    {
+        entry: {
+            style: PATHS.style,
+            app: PATHS.app
+        },
+        output: {
+            path: PATHS.build,
+            filename: '[name].js'
+        },
+        resolve: {
+            extensions: [ '.js', '.jsx']
+        }
+    },
+    parts.indexTemplate({
+        title: 'SoulBoy - Khalil Fong Portfolio',
+        appMountId: 'app'
+    }),
+    parts.loadJSX(PATHS.app),
+    parts.loadFile(PATHS.assets)
+);
 
 module.exports = function(env) {
   if (env === 'build') {
@@ -57,7 +64,6 @@ module.exports = function(env) {
         parts.extractCSS(PATHS.style),
         parts.purifyCSS([PATHS.app]),
       parts.minify()
-
     );
   }
 

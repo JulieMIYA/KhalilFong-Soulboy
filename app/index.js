@@ -1,5 +1,7 @@
-require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './components/Root'
 
-var component = require('./component');
-
-document.body.appendChild(component());
+ReactDOM.render(
+    <Root/>, document.getElementById('app')
+);

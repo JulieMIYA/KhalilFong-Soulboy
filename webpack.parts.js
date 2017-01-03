@@ -1,7 +1,22 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack-plugin');
+
+
+exports.indexTemplate = function(options) {
+    return {
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: require('html-webpack-template'),
+                title: options.title,
+                appMountId: options.appMountId,
+                inject: false
+            })
+        ]
+    };
+}
 
 exports.devServer = function(options) {
   return {
@@ -43,10 +58,15 @@ exports.devServer = function(options) {
 exports.setupCSS = function(paths) {
   return {
     module: {
-      rules: [
+      loaders: [
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          loader: ['style-loader', 'css-loader'],
+          include: paths
+        },
+        {
+          test: /\.sass$/,
+            loader: ['style-loader', 'css-loader', 'sass-loader'],
           include: paths
         }
       ]
@@ -109,13 +129,21 @@ exports.clean = function(path) {
 exports.extractCSS = function(paths) {
   return {
     module: {
-      rules: [
+      loaders: [
         // Extract CSS during build
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
             loader: 'css-loader'
+          }),
+          include: paths
+        },
+        {
+          test: /\.sass$/,
+          loader: ExtractTextPlugin.extract({
+              fallbackLoader: 'style-loader',
+              loader: 'css-loader!sass-loader'
           }),
           include: paths
         }
@@ -133,14 +161,61 @@ exports.purifyCSS = function(paths) {
     plugins: [
       new PurifyCSSPlugin({
         basePath: process.cwd(),
-        // `paths` is used to point PurifyCSS to files not
-        // visible to Webpack. This expects glob patterns so
-        // we adapt here.
         paths: paths.map(path => `${path}/*`)
-        // Walk through only html files within node_modules. It
-        // picks up .js files by default!
-        // resolveExtensions: ['.html']
       }),
     ]
   }
+}
+
+exports.loadJSX= function(include) {
+    return{
+        module: {
+            loaders: [
+                {
+                    test: /\.(js|jsx)$/,
+                    loader: 'babel-loader',
+                    include: include,
+                    query: {
+                        presets: ["es2015", "stage-0", "react"],
+                    }
+
+                }
+            ]
+        }
+    }
+
+}
+
+exports.loadUrl = function(pathArr) {
+    return {
+        module: {
+            loaders: [
+                {
+                    test: /\.(jpg|png)$/,
+                    loader: 'url-loader',
+                    options: {
+                        limit: 25000
+                    },
+                    include: pathArr
+                }
+            ]
+        }
+    }
+}
+
+exports.loadFile = function(include){
+    return {
+        module: {
+            loaders: [
+                {
+                    test: /\.(jpg|png|svg)$/,
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[hash].[ext]'
+                    },
+                    include: include
+                }
+            ]
+        }
+    }
 }
