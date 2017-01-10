@@ -1,17 +1,20 @@
-import React from 'react'
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
-import MainLayout from './MainLayout'
-import Home from './Home'
-import Bio from './Bio'
-import Albums from './Albums'
-
-const Root = ()=>(
-    <Router history={browserHistory} >
-        <Route path="/" component={ MainLayout } >
-            <IndexRoute component={ Home } />
-            <Route path="/bio" component={ Bio }></Route>
-            <Route path="/albums" component={ Albums }></Route>
-        </Route>
-    </Router>
-);
-export default Root;
+// import React from 'react'
+// import { Router, Route, browserHistory, IndexRoute} from 'react-router'
+// import MainLayout from './MainLayout'
+// import HomeLayout from './HomeLayout'
+// import BioLayout from './BioLayout'
+// import AlbumsLayout from './AlbumsLayout'
+//
+// const Root = ()=>{
+//     return (
+//         <Router history={browserHistory} >
+//             <Route path="/" component={ MainLayout } >
+//                 <IndexRoute component={ HomeLayout } />
+//                 <Route path="/albums" component={ AlbumsLayout } ></Route>
+//                 <Route path="/bio" component={ BioLayout } ></Route>
+//             </Route>
+//         </Router>
+//     );
+// }
+//
+// export default Root;

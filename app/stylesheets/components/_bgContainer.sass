@@ -1,0 +1,17 @@
+.bgLy
+  z-index: -1
+  position: absolute
+  height: 100vh
+  left: 0
+  top: 0
+  right: 0
+  img
+    height: 80%
+    position: absolute
+    bottom: 0
+    left: 50%
+    +transform(translateX(-50%))
+    +transition(all 2.0s ease-in-out)
+  &.left
+    img
+      +transform(translateX(0))

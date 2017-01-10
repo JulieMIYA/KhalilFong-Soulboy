@@ -9,7 +9,7 @@ const PATHS = {
   assets: path.join(__dirname, 'app','/assets'),
   style: [
     path.join(__dirname, 'node_modules', 'purecss'),
-    path.join(__dirname, 'app', 'main.sass')
+    path.join(__dirname, 'app', '/stylesheets/main.sass')
   ],
   build: path.join(__dirname, 'build')
 };

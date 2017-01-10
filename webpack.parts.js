@@ -211,11 +211,11 @@ exports.loadFile = function(include){
         module: {
             loaders: [
                 {
-                    test: /\.(jpg|png|svg)$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: '[path][name].[hash].[ext]'
-                    },
+                    test: /\.(gif|png|jpe?g|svg)$/,
+                    loaders: [
+                        'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                        'image-webpack-loader'
+                    ],
                     include: include
                 }
             ]
