@@ -1,11 +1,15 @@
 import React from 'react';
+import classNames  from 'classnames'
 
 const BgLayout = ({position})=>{
     const src = require('../assets/khalil.png');
-    const imgPosition = (position=='left')?' left':'';
-    const cn = 'bgLy'+ imgPosition;
+
+    var imgClass=  classNames({
+      'bgLy': true,
+      'left': (position == 'left')
+    });
     return (
-        <div className= {cn} >
+        <div className= {imgClass} >
             <img src={src} alt="Khalil Fong"/>
         </div>
 
